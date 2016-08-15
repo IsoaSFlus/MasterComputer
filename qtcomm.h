@@ -19,7 +19,7 @@ public:
     QSerialPort *mSerialPort;
     explicit QTComm(QObject *parent = 0);
     ~QTComm();
-    void init();
+    void openSerialPort(QString portName);
     QByteArray read();
 signals:
 

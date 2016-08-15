@@ -10,10 +10,10 @@ QTComm::~QTComm()
     delete mSerialPort;
 }
 
-void QTComm::init()
+void QTComm::openSerialPort(QString portName)
 {
 
-    mSerialPort->setPortName(QString("/dev/ttyUSB0"));
+    mSerialPort->setPortName(portName);
     mSerialPort->setBaudRate(QSerialPort::Baud9600);    //波特率
     mSerialPort->setDataBits(QSerialPort::Data8);
     mSerialPort->setParity(QSerialPort::NoParity);

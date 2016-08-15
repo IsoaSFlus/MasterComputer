@@ -17,10 +17,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     qtcomm.cpp \
-    mcu.cpp
+    mcu.cpp \
+    setnamedialog.cpp
 
 HEADERS  += mainwindow.h \
     qtcomm.h \
-    mcu.h
+    mcu.h \
+    setnamedialog.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    setnamedialog.ui
