@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/img">
+        <file alias="gray">warning_gray.png</file>
+        <file alias="red">warning_red.png</file>
+        <file alias="yellow">warning_yellow.png</file>
+    </qresource>
+</RCC>

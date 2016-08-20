@@ -7,6 +7,10 @@
 #include <QDateTime>
 #include <QtSerialPort/QSerialPortInfo>
 #include <QCloseEvent>
+#include <QDir>
+#include <QMessageBox>
+#include <QSettings>
+#include "fadeanimation.h"
 #include "qtcomm.h"
 #include "mcu.h"
 #include "setnamedialog.h"
@@ -21,6 +25,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 protected:
     void closeEvent(QCloseEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event);
 
 public:
     explicit MainWindow(QWidget *parent = 0);
@@ -28,6 +33,9 @@ public:
     void updateLabel();
     void setName();
     void saveLog();
+    void setAlert(int n);
+    void readSettings();
+    void writeSettings();
 private slots:
     void on_pushButton_clicked();
     void showLog();
@@ -37,6 +45,7 @@ private:
     Ui::MainWindow *ui;
     QTComm *qtcomm;
     QString buf;
+    FadeAnimation *fade[4];
 };
 
 #endif // MAINWINDOW_H

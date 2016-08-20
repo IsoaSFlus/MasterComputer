@@ -18,12 +18,17 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     qtcomm.cpp \
     mcu.cpp \
-    setnamedialog.cpp
+    setnamedialog.cpp \
+    fadeanimation.cpp
 
 HEADERS  += mainwindow.h \
     qtcomm.h \
     mcu.h \
-    setnamedialog.h
+    setnamedialog.h \
+    fadeanimation.h
 
 FORMS    += mainwindow.ui \
     setnamedialog.ui
+
+RESOURCES += \
+    resource.qrc
