@@ -26,7 +26,8 @@ MainWindow::MainWindow(QWidget *parent) :
     readSettings();
     this->updateLabel();
 
-    foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
+    foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts())
+    {
         ui->comboBox->addItem(info.portName());
     }
 
@@ -44,6 +45,16 @@ MainWindow::MainWindow(QWidget *parent) :
     fade[1] = new FadeAnimation(this, ui->label_6);
     fade[2] = new FadeAnimation(this, ui->label_7);
     fade[3] = new FadeAnimation(this, ui->label_8);
+
+    QFile data(QApplication::applicationDirPath()+"\/log.txt");
+    if (data.open(QFile::ReadOnly | QFile::Text)) {
+        QTextStream in(&data);
+        QString str;
+        str = in.readAll();
+        ui->textBrowser->setText(str);
+        ui->textBrowser->moveCursor(QTextCursor::End);
+    }
+    data.close();
 
     connect(setNameAction, &QAction::triggered, this, &MainWindow::setName);
     connect(qtcomm->mSerialPort, &QSerialPort::readyRead, this, &MainWindow::showLog);
@@ -72,6 +83,7 @@ void MainWindow::showLog()
         log = QString("  发出警报\n");
         QDateTime  time = QDateTime::currentDateTime();
         QString current_date = time.toString("yyyy-MM-dd hh:mm  ");
+        this->buf += current_date + mcus->mcu[getInfo/11]->getName() +log;
         ui->textBrowser->setText(ui->textBrowser->toPlainText() + current_date + mcus->mcu[getInfo/11]->getName() +log);
         ui->textBrowser->moveCursor(QTextCursor::End);
         setAlert(getInfo/11 +1);
@@ -101,7 +113,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
     QFile data(QApplication::applicationDirPath()+"\/log.txt");
     if (data.open(QFile::ReadWrite | QIODevice::Append)) {
         QTextStream out(&data);
-        out << ui->textBrowser->toPlainText();
+//        out << ui->textBrowser->toPlainText();
+        out << buf;
         qDebug()<<"write success";
     }
     data.close();
