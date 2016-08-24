@@ -45,6 +45,8 @@ private:
     Ui::MainWindow *ui;
     QTComm *qtcomm;
     QString buf;
+    QString last_date;
+    int last_num;
     FadeAnimation *fade[4];
 };
 

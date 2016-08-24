@@ -7,6 +7,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    last_date = QString("s");
+    last_num = 9;
+
     QCoreApplication::setOrganizationName("IsoaSFlus");
     QCoreApplication::setOrganizationDomain("isoasflus.me");
     QCoreApplication::setApplicationName(tr("智能安防系统"));
@@ -77,6 +80,7 @@ void MainWindow::showLog()
 {
     bool ok;
     int getInfo = qtcomm->read().toInt(&ok, 10);
+    qDebug()<< getInfo;
     if((getInfo % 11 == 0) && (ok == true) && getInfo <= 33)
     {
         QString log;
@@ -84,10 +88,15 @@ void MainWindow::showLog()
         QDateTime  time = QDateTime::currentDateTime();
         QString current_date = time.toString("yyyy-MM-dd hh:mm  ");
         this->buf += current_date + mcus->mcu[getInfo/11]->getName() +log;
-        ui->textBrowser->setText(ui->textBrowser->toPlainText() + current_date + mcus->mcu[getInfo/11]->getName() +log);
-        ui->textBrowser->moveCursor(QTextCursor::End);
-        setAlert(getInfo/11 +1);
 
+        if(current_date != last_date || getInfo/11 != last_num)
+        {
+            ui->textBrowser->setText(ui->textBrowser->toPlainText() + current_date + mcus->mcu[getInfo/11]->getName() +log);
+            ui->textBrowser->moveCursor(QTextCursor::End);
+            setAlert(getInfo/11 + 1);
+        }
+        last_date = current_date;
+        last_num = getInfo/11;
     }
 }
 

@@ -24,8 +24,9 @@ void QTComm::openSerialPort(QString portName)
         qDebug() <<"ok";
     else
         qDebug() <<"false";
-    mSerialPort->write("AT+RXA=0xFF,0xFF,0xFF,0xFF,0xFF");
-
+//    mSerialPort->write("AT+RXA=0xFF,0xFF,0xFF,0xFF,0xFF");
+//    mSerialPort->write("AT+RATE=2");
+//    mSerialPort->write("AT+FREQ=2.440G");
 }
 
 void QTComm::send()
@@ -36,3 +37,4 @@ QByteArray QTComm::read()
 {
     return mSerialPort->readAll();
 }
+//AT+RXA=0XE7,0XE7,0XE7,0XE7,0XE7
